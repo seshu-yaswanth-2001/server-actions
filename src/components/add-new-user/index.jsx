@@ -1,69 +1,51 @@
 "use client";
 
-import { useContext } from "react";
-import { Button } from "../ui/button";
-import { UserContext } from "../../context";
 import {
   Dialog,
-  DialogHeader,
   DialogContent,
   DialogFooter,
+  DialogHeader,
   DialogTitle,
 } from "../ui/dialog";
-import { addNewuserFormControls } from "@/utils";
+import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
+import { addNewUserFormControls } from "@/Utils";
+import { addNewUsers } from "@/app/actions";
+import { useState } from "react";
 
 const AddNewUser = () => {
-  const {
-    openUp,
-    setOpenUp,
-    addNewUserFormData,
-    setNewUserFormData,
-    currentEditId,
-    setCurrentEditId,
-  } = useContext(UserContext);
-
+  const [openDialog, setOpenDialog] = useState(false);
   return (
     <div>
-      <Button onClick={() => setOpenUp(true)}>Add New User</Button>
-      <Dialog open={openUp} onOpenChange={()=> {
-        setOpenUp(true)
-      }}>
-        <DialogContent>
+      <Button onClick={() => setOpenDialog(true)}>Add new user</Button>
+      <Dialog
+        open={openDialog}
+        onOpenChange={() => {
+          setOpenDialog(false);
+        }}
+      >
+        <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Add New User</DialogTitle>
+            <DialogTitle>User Details</DialogTitle>
           </DialogHeader>
-          <form className="grid gap-4 py-4">
-            {addNewuserFormControls?.map((controlItem) => (
+          <form className="grid gap-4 py-4" action={addNewUsers}>
+            {addNewUserFormControls.map((controlItem) => (
               <div key={controlItem.name} className="mb-5">
-                <Label className="text-right" htmlFor={controlItem.name}>
+                <Label htmlFor={controlItem.name} className="text-right mb-5">
                   {controlItem.label}
                 </Label>
                 <Input
                   id={controlItem.name}
                   type={controlItem.type}
-                  name={controlItem.name}
                   placeholder={controlItem.placeholder}
-                  className="col-span-3"
-                  value={addNewUserFormData[controlItem.name]}
-                  onChange={(event) => {
-                    setNewUserFormData({
-                      ...addNewUserFormData,
-                      [controlItem.name]: event.target.value,
-                    });
-                  }}
+                  name={controlItem.name}
+                  defaultValue=""
                 />
               </div>
             ))}
             <DialogFooter>
-              <Button
-                className="disabled:opacity-55"
-                disabled={{}}
-                type="submit"
-              >
-                Save
-              </Button>
+              <Button type="submit">Save</Button>
             </DialogFooter>
           </form>
         </DialogContent>

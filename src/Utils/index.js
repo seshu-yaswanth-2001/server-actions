@@ -1,33 +1,33 @@
-export const addNewuserFormControls = [
+export const addNewUserFormControls = [
   {
     name: "firstName",
     label: "First Name",
-    placeholder: "Enter your first name",
     type: "text",
+    placeholder: "Enter your first name",
   },
   {
     name: "lastName",
     label: "Last Name",
-    placeholder: "Enter your last name",
     type: "text",
+    placeholder: "Enter your last name",
   },
   {
     name: "email",
     label: "Email",
-    placeholder: "yourname@gmail.com",
     type: "email",
+    placeholder: "youname@email.com",
   },
   {
     name: "address",
     label: "Address",
-    placeholder: "Address",
     type: "text",
+    placeholder: "Address",
   },
 ];
 
 export const addNewUserInitialState = {
   firstName: "",
   lastName: "",
-  placeholder: "",
-  type: "",
+  email: "",
+  address: "",
 };
