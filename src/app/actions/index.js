@@ -3,13 +3,14 @@
 import connectDB from "@/database";
 import User from "@/models";
 import Joi from "joi";
+import { ObjectId } from "mongodb";
 import { revalidatePath } from "next/cache";
 
 const userSchema = Joi.object({
-  firstName: Joi.string().alphanum().min(3).max(30).required(),
-  lastName: Joi.string().alphanum().min(3).max(30).required(),
+  firstName: Joi.string().min(3).max(30).required(),
+  lastName: Joi.string().min(3).max(30).required(),
   email: Joi.string().required(),
-  address: Joi.string().min(3).max(30).alphanum().required(),
+  address: Joi.string().min(3).max(30).required(),
 });
 
 export async function addNewUsers(formData) {

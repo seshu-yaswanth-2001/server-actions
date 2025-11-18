@@ -13,8 +13,12 @@ import {
 import { UserContext } from "@/context";
 
 const SingleCard = ({ user }) => {
-  const { openDialog, setOpenDialog, editingUser, setEditingUser } =
-    useContext(UserContext);
+  const { setOpenDialog, setEditingUser } = useContext(UserContext);
+
+  const handleEdit = () => {
+    setOpenDialog(true);
+    setEditingUser(user);
+  };
 
   return (
     <Card>
@@ -28,7 +32,7 @@ const SingleCard = ({ user }) => {
         <p>{user?.address}</p>
       </CardContent>
       <CardFooter>
-        <Button onClick={() => setOpenDialog(true)}>Edit</Button>
+        <Button onClick={handleEdit}>Edit</Button>
         <Button>Delete</Button>
       </CardFooter>
     </Card>
