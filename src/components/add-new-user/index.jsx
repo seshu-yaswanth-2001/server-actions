@@ -19,8 +19,6 @@ const AddNewUser = () => {
   const { openDialog, setOpenDialog, editingUser, setEditingUser } =
     useContext(UserContext);
 
-  console.log(editingUser);
-
   const [formData, setFormData] = useState(addNewUserInitialState);
 
   useEffect(() => {

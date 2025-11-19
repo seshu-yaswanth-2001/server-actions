@@ -99,7 +99,6 @@ export async function updateUsers(userId, formData) {
     const result = await User.findByIdAndUpdate(userId, data, { new: true });
 
     if (result) {
-      revalidatePath("/user");
       return {
         success: true,
         message: "User updated successfully",
@@ -109,6 +108,32 @@ export async function updateUsers(userId, formData) {
       return {
         success: false,
         message: "User Not found",
+      };
+    }
+  } catch (err) {
+    console.log(err);
+    return {
+      success: false,
+      message: "Something went wrong! Please try again later",
+    };
+  }
+}
+
+export async function deleteUsers(userId) {
+  await connectDB();
+  try {
+    const deletedUser = await User.findByIdAndDelete(userId);
+
+    if (deletedUser) {
+      revalidatePath("/user");
+      return {
+        success: true,
+        message: "User Deleted!",
+      };
+    } else {
+      return {
+        success: false,
+        message: "Something Went Wrong!",
       };
     }
   } catch (err) {

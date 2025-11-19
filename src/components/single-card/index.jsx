@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "../ui/card";
 import { UserContext } from "@/context";
+import { deleteUsers } from "@/app/actions";
 
 const SingleCard = ({ user }) => {
   const { setOpenDialog, setEditingUser } = useContext(UserContext);
@@ -18,6 +19,10 @@ const SingleCard = ({ user }) => {
   const handleEdit = () => {
     setOpenDialog(true);
     setEditingUser(user);
+  };
+
+  const handleDelete = async (id) => {
+    const result = await deleteUsers(id);
   };
 
   return (
@@ -33,7 +38,7 @@ const SingleCard = ({ user }) => {
       </CardContent>
       <CardFooter>
         <Button onClick={handleEdit}>Edit</Button>
-        <Button>Delete</Button>
+        <Button onClick={() => handleDelete(user._id)}>Delete</Button>
       </CardFooter>
     </Card>
   );
